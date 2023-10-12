@@ -1,0 +1,20 @@
+services:
+  postgres_test:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=test_db_SeeCV
+    ports:
+      - "5433:5432"  
+
+  seecv_test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      - DB_SOURCE=postgresql://root:secret@postgres_test:5432/test_db_SeeCV?sslmode=disable
+    env_file:
+      - env.env
+    depends_on:
+      - postgres_test

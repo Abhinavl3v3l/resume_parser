@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS "skills";
+DROP TABLE IF EXISTS "candidates";

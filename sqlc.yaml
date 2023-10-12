@@ -1,0 +1,14 @@
+version: "2"
+sql:
+  - schema: "./internal/db/migration/"
+    queries: "./internal/db/queries/"
+    engine: "postgresql"
+    gen:
+      go:
+        package: "gen"
+        out: "./internal/db/gen"
+        emit_json_tags: true
+    database:
+      uri: "postgresql://root:secret@localhost:5433/db_SeeCV?sslmode=disable"
+    rules:
+      - sqlc/db-prepare

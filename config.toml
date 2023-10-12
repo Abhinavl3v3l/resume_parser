@@ -1,0 +1,9 @@
+# Database Configuration
+
+[database]
+# PostgreSQL Database Connection URL
+url = "postgresql://root:secret@postgres:5432/db_SeeCV?sslmode=disable"
+dbDriver  = "postgres"
+
+ [server]
+ port = ":8080"

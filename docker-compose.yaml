@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=db_SeeCV
+    ports:
+      - "5432:5432"
+  seecv:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_SOURCE=postgresql://root:secret@postgres:5432/db_SeeCV?sslmode=disable
+    env_file:
+      - env.env
+    depends_on:
+      - postgres
+    entrypoint: ["/app/wait-for.sh", "postgres:5432","--", "/app/start.sh"]
+    command: ["/app/main"]
